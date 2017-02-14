@@ -17,7 +17,12 @@ def kernel_filter (img, kernel):
 			mtx_multiply = img[(row - 1): (row + 2), (col - 1): (col + 2)]
 
 			img_convert = kernel*mtx_multiply
-			img_filter[row, col] = img_convert.sum()
+			if(img_convert.sum()>255):
+				img_filter[row, col] = 255
+			elif(img_convert.sum()<-255):
+				img_filter[row, col] = -255
+			else:
+				img_filter[row, col] = img_convert.sum()
 	#return the filtered image file
 	return img_filter
 
